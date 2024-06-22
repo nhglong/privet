@@ -1,1 +1,1 @@
-image: ghcr.io/sushrut1101/docker:arch
+image: gitpod/workspace-base
