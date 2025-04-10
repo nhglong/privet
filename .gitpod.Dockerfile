@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:24.04
 
 # Install:
 # - git (and git-lfs), for git operations (to e.g. push your work).
