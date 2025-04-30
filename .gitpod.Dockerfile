@@ -1,43 +1,27 @@
 FROM ubuntu:24.04
 
-COPY install-packages upgrade-packages /usr/bin/
-
 ### base ###
-RUN yes | unminimize \
-    && install-packages \
+RUN yes | unminimize apt-get update && apt-get install -yq \
     zip \
     unzip \
-    bash-completion \
     build-essential \
     clang \
     htop \
-    iputils-ping \
-    jq \
-    less \
+    curl \
+    wget \
+    bc \
+    bison \
+    make \
+    xz-utils \
     locales \
-    man-db \
+    git \
+    git-lfs \
     nano \
-    ripgrep \
-    software-properties-common \
     sudo \
-    stow \
     time \
-    emacs-nox \
-    multitail \
-    lsof \
-    ssl-cert \
-    fish \
-    zsh \
-    rlwrap \
     && locale-gen en_US.UTF-8
 
 ENV LANG=en_US.UTF-8
-
-### Update and upgrade the base image ###
-RUN upgrade-packages
-
-### Git ###
-RUN install-packages git git-lfs
 
 ### set user ###
 # '-l': see https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user
@@ -64,6 +48,3 @@ RUN sudo echo "Running 'sudo' for hlong: success" && \
     (echo; echo "for i in \$(ls -A \$HOME/.bashrc.d/); do source \$HOME/.bashrc.d/\$i; done"; echo) >> /home/hlong/.bashrc && \
     # create a completions dir for hlong user
     mkdir -p /home/hlong/.local/share/bash-completion/completions
-
-# Custom PATH additions
-ENV PATH=$HOME/.local/bin:/usr/games:$PATH
